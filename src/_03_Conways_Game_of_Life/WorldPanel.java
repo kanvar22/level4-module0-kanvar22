@@ -102,14 +102,16 @@ Cell[][] cells;
 		//7. iterate through cells and fill in the livingNeighbors array
 		// . using the getLivingNeighbors method.
 		for (int i = 0; i < cells.length; i++) {
+			for (int j = 0; j < cells.length; j++) {
+				getLivingNeighbors(i,j);
 			
-		}
-		int[][] livingNeighbors = new int[cellsPerRow][cellsPerRow];
+		
 		//8. check if each cell should live or die
+	cells[i][j].liveOrDie(getLivingNeighbors(i,j)); 
+		
 	
-		
-		
-		
+			}
+		}
 		repaint();
 	}
 	
@@ -118,7 +120,20 @@ Cell[][] cells;
 	//   living neighbors there are of the 
 	//   cell identified by x and y
 	public int getLivingNeighbors(int x, int y){
-		return 0;
+		int p = 0;
+		if(cells[x][y + cellSize].isAlive == true) {
+			p+=1;
+		}
+		else if (cells[x][y - cellSize].isAlive == true) {
+			p+=1;
+		}
+		else if (cells[x + cellSize][y].isAlive == true) {
+			p+=1;
+		}
+		else if (cells[x - cellSize][y].isAlive == true) {
+			p+=1;
+		}
+		return p;
 	}
 
 	@Override
@@ -143,6 +158,8 @@ Cell[][] cells;
 		//10. Use e.getX() and e.getY() to determine
 		//    which cell is clicked. Then toggle
 		//    the isAlive variable for that cell.
+		cells[e.getX()/cellSize][e.getY()/cellSize].isAlive = false;
+			
 		
 		
 		
