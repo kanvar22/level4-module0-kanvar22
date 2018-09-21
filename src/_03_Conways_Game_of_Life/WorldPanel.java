@@ -37,23 +37,20 @@ Cell[][] cells;
 		//   passing in the location.
 		for (int i = 0; i < cells.length; i++) {
 			for (int j = 0; j < cells[i].length; j++) {
-				cells[i][j] = new Cell(i,j,cellSize);
+				cells[i][j] = new Cell(i * cellSize,j* cellSize,cellSize);
 			}
 		}
 	}
-	 public static boolean getRandomBoolean() {
-		    return Math.random() < 0.5;
-		    
-
-		     }
+	 
 	public void randomizeCells() {
 		//4. Iterate through each cell and randomly set each
 		//   cell's isAlive memeber to true of false
+		Random random = new Random();
 		for (int i = 0; i < cells.length; i++) {
 			for (int j = 0; j < cells.length; j++) {
-				Random random = new Random();
-				random.nextBoolean();
-				cells[i][j].isAlive = getRandomBoolean();
+				
+				
+				cells[i][j].isAlive = random.nextBoolean();
 			}
 		}
 		repaint();
@@ -121,17 +118,29 @@ Cell[][] cells;
 	//   cell identified by x and y
 	public int getLivingNeighbors(int x, int y){
 		int p = 0;
-		if(cells[x][y + cellSize].isAlive == true) {
-			p+=1;
+		if(cellsPerRow <= y-1 && cellsPerRow <= x-1  && cells[x-1][y-1].isAlive == true) {
+			p += 1;
 		}
-		else if (cells[x][y - cellSize].isAlive == true) {
-			p+=1;
+		else if (cellsPerRow <= y - 1 && cells[x][y - 1].isAlive == true) {
+			p += 1;
 		}
-		else if (cells[x + cellSize][y].isAlive == true) {
-			p+=1;
+		else if (cellsPerRow > x + 1 && cellsPerRow <= y - 1 && cells[x + 1][y - 1].isAlive == true) {
+			p += 1;
 		}
-		else if (cells[x - cellSize][y].isAlive == true) {
-			p+=1;
+		else if (cellsPerRow <= x - 1 && cells[x - 1][y].isAlive == true) {
+			p += 1;
+		}
+		else if (cellsPerRow > x + 1 && cells[x + 1][y].isAlive == true) {
+			p += 1;
+		}
+		else if (cellsPerRow > y + 1 && cells[x][y + 1].isAlive == true) {
+			p += 1;
+		}
+		else if (cellsPerRow > x + 1 && cellsPerRow > y + 1 && cells[x + 1][y + 1].isAlive == true) {
+			p += 1;
+		}
+		else if (cellsPerRow <= x - 1 && cellsPerRow <= y - 1 && cells[x - 1][y - 1].isAlive == true) {
+			p += 1;
 		}
 		return p;
 	}
