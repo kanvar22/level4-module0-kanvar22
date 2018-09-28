@@ -1,5 +1,4 @@
 package _04_Maze_Maker;
-
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Stack;
@@ -21,11 +20,16 @@ public class MazeMaker{
 		height = h;
 		maze = new Maze(width, height);
 		
+		Object array;
 		//4. select a random cell to start
-		
-		
+		Random a = new Random ();
+		a.nextInt(width);
+		Random b = new Random ();
+		b.nextInt(height);
+				
 		//5. call selectNextPath method with the randomly selected cell
 		
+		cell[a][b].selectNextPath();
 		
 		return maze;
 	}
