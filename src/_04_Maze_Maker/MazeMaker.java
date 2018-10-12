@@ -1,5 +1,6 @@
 package _04_Maze_Maker;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Random;
 import java.util.Stack;
 
@@ -21,9 +22,9 @@ public class MazeMaker{
 		
 		Object array;
 		//4. select a random cell to start
-		int a = new Random().nextInt();
+		int a = new Random().nextInt(w);
 		//a.nextInt(width);
-		int b = new Random().nextInt();
+		int b = new Random().nextInt(h);
 		//b.nextInt(height);
 				
 		//5. call selectNextPath method with the randomly selected cell
@@ -40,17 +41,21 @@ Cell cell1 = maze.getCell(a, b);
 	
 	//6. Complete the selectNextPathMethod
 	private static void selectNextPath(Cell currentCell) {
-		int a = new Random().nextInt();
+		int a = new Random().nextInt(width);
 		
-		int b = new Random().nextInt();
+		int b = new Random().nextInt(height);
 		//A. mark cell as visited
 		currentCell.setBeenVisited(true);
 		//B. check for unvisited neighbors, using the cell
 		ArrayList<Cell> unvisitedNeighbors = getUnvisitedNeighbors(currentCell);
 		//C. if has unvisited neighbors,
-		if (unvisitedNeighbors.isEmpty()) {
-			Cell cell3 = maze.getCell(a, b);
-			uncheckedCells.push(cell3);
+		if (!unvisitedNeighbors.isEmpty()) {
+			int c = new Random().nextInt(unvisitedNeighbors.size());
+			uncheckedCells.push(unvisitedNeighbors.get(c));
+			removeWalls(currentCell ,unvisitedNeighbors.get(c));
+			currentCell = unvisitedNeighbors.get(c);
+			currentCell.setBeenVisited(true);
+			selectNextPath(currentCell);
 			
 		}
 			//C1. select one at random.
@@ -65,7 +70,10 @@ Cell cell1 = maze.getCell(a, b);
 			
 			
 		//D. if all neighbors are visited
-		
+		if (unvisitedNeighbors.isEmpty()&&!uncheckedCells.isEmpty()) {
+			currentCell = uncheckedCells.pop();
+			selectNextPath(currentCell);
+		}
 			//D1. if the stack is not empty
 			
 				// D1a. pop a cell from the stack
@@ -89,6 +97,9 @@ Cell cell1 = maze.getCell(a, b);
 	//   Any unvisited neighbor of the passed in cell gets added
 	//   to the ArrayList
 	private static ArrayList<Cell> getUnvisitedNeighbors(Cell c) {
-		return null;
+		
+		
+		
+		return (ArrayList<Cell>) Collections.EMPTY_LIST;
 	}
 }
