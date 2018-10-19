@@ -90,6 +90,26 @@ Cell cell1 = maze.getCell(a, b);
 	//   This method will check if c1 and c2 are adjacent.
 	//   If they are, the walls between them are removed.
 	private static void removeWalls(Cell c1, Cell c2) {
+		if (c1.getX() == c2.getX()) {
+			if (c1.getY() > c2.getY()) {
+				c1.setNorthWall(false);
+				c2.setSouthWall(false);
+			}
+			if (c1.getY() < c2.getY()) {
+				c1.setSouthWall(false);
+				c2.setNorthWall(false);
+			}
+		}
+		if (c1.getY() == c2.getY()) {
+			if (c1.getX() > c2.getX()) {
+				c1.setWestWall(false);
+				c2.setEastWall(false);
+			}
+			if (c1.getX() < c2.getY()) {
+				c1.setEastWall(false);
+				c2.setWestWall(false);
+			}
+		}
 		
 	}
 	
@@ -97,9 +117,9 @@ Cell cell1 = maze.getCell(a, b);
 	//   Any unvisited neighbor of the passed in cell gets added
 	//   to the ArrayList
 	private static ArrayList<Cell> getUnvisitedNeighbors(Cell c) {
-		
-		
-		
+		if (maze.cell[c.getX() + 1][c.getY()].hasBeenVisited() == true) {
+			
+		}
 		return (ArrayList<Cell>) Collections.EMPTY_LIST;
 	}
 }
