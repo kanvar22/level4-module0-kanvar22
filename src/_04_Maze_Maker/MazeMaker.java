@@ -41,9 +41,7 @@ Cell cell1 = maze.getCell(a, b);
 	
 	//6. Complete the selectNextPathMethod
 	private static void selectNextPath(Cell currentCell) {
-		int a = new Random().nextInt(width);
 		
-		int b = new Random().nextInt(height);
 		//A. mark cell as visited
 		currentCell.setBeenVisited(true);
 		//B. check for unvisited neighbors, using the cell
@@ -117,9 +115,19 @@ Cell cell1 = maze.getCell(a, b);
 	//   Any unvisited neighbor of the passed in cell gets added
 	//   to the ArrayList
 	private static ArrayList<Cell> getUnvisitedNeighbors(Cell c) {
-		if (maze.cell[c.getX() + 1][c.getY()].hasBeenVisited() == true) {
-			
+		ArrayList<Cell> p = new ArrayList<Cell>();
+		if (c.getX() + 1 < width && maze.cell[c.getX() + 1][c.getY()].hasBeenVisited() == false) {
+			p.add(maze.cell[c.getX() + 1][c.getY()]);
 		}
-		return (ArrayList<Cell>) Collections.EMPTY_LIST;
+		if ( 0 < c.getY() && maze.cell[c.getX()][c.getY() - 1].hasBeenVisited() == false) {
+			p.add(maze.cell[c.getX()][c.getY() - 1]);
+		}
+		if ( 0 < c.getX() && maze.cell[c.getX() - 1][c.getY()].hasBeenVisited() == false) {
+			p.add(maze.cell[c.getX() - 1][c.getY()]);
+		}
+		if (c.getY() + 1 < height && maze.cell[c.getX()][c.getY() + 1].hasBeenVisited() == false) {
+			p.add(maze.cell[c.getX()][c.getY() + 1]);
+		}
+		return p;
 	}
 }
